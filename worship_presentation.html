@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 한어 중등부 여름 수양회 - LIVING HOPE</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Noto+Sans+KR:wght@300;400;500;700&family=Montserrat:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --deep: #0A0E1A;
+    --navy: #101628;
+    --navy-mid: #1A2340;
+    --text-main: #EEE8D8;
+    --text-muted: #8A8070;
+    --green: #2D7D46;
+    --red: #E05252;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Noto Sans KR', sans-serif; background: var(--deep); color: var(--text-main); min-height: 100vh; overflow-x: hidden; }
+
+  /* SLIDE SYSTEM */
+  .slide { display: none; width: 100vw; min-height: 100vh; flex-direction: column; animation: fadeIn 0.45s ease; }
+  .slide.active { display: flex; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+  /* NAV */
+  .nav-bar { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:13px 28px; background:rgba(10,14,26,0.93); backdrop-filter:blur(12px); border-bottom:1px solid rgba(201,168,76,0.18); }
+  .nav-logo { font-family:'Montserrat',sans-serif; font-weight:800; font-size:12px; letter-spacing:3px; color:var(--gold); cursor:pointer; }
+  .nav-links { display:flex; gap:5px; flex-wrap:wrap; justify-content:flex-end; }
+  .nav-btn { font-family:'Noto Sans KR',sans-serif; font-size:11px; font-weight:500; padding:5px 13px; border-radius:20px; border:1px solid rgba(201,168,76,0.25); background:transparent; color:var(--text-muted); cursor:pointer; transition:all 0.2s; }
+  .nav-btn:hover, .nav-btn.active-nav { background:var(--gold); color:var(--deep); border-color:var(--gold); font-weight:700; }
+
+  /* HOME */
+  #home { align-items:center; justify-content:center; text-align:center; padding-top:80px; overflow:visible; position:relative; }
+  .home-bg::before { content:''; position:absolute; width:700px; height:700px; background:radial-gradient(circle,rgba(201,168,76,0.07) 0%,transparent 70%); top:-100px; left:50%; transform:translateX(-50%); pointer-events:none; }
+  .cross-deco { position:absolute; opacity:0.06; pointer-events:none; }
+  .cross-deco.c1 { width:1px; height:200px; background:var(--gold); top:20%; right:15%; }
+  .cross-deco.c2 { width:80px; height:1px; background:var(--gold); top:calc(20% + 60px); right:calc(15% - 40px); }
+  .cross-deco.c3 { width:1px; height:150px; background:var(--gold); bottom:25%; left:12%; }
+  .cross-deco.c4 { width:60px; height:1px; background:var(--gold); bottom:calc(25% + 45px); left:calc(12% - 30px); }
+  .home-content { position:relative; z-index:2; max-width:900px; padding:0 40px 60px; }
+  .home-year { font-family:'Montserrat',sans-serif; font-weight:300; font-size:12px; letter-spacing:8px; color:var(--gold); margin-bottom:18px; }
+  .home-subtitle-top { font-family:'Noto Sans KR',sans-serif; font-weight:700; font-size:clamp(16px,2.5vw,24px); letter-spacing:4px; margin-bottom:10px; }
+  .home-title-living { font-family:'Playfair Display',serif; font-style:italic; font-weight:700; font-size:clamp(64px,11vw,130px); line-height:0.9; color:transparent; -webkit-text-stroke:1.5px var(--gold-light); display:block; margin-bottom:4px; }
+  .home-title-hope { font-family:'Playfair Display',serif; font-weight:900; font-size:clamp(72px,13vw,150px); line-height:0.85; background:linear-gradient(135deg,var(--gold-light),var(--gold),#A07830); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; display:block; padding-bottom:0.18em; }
+  .home-divider { width:120px; height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent); margin:28px auto; }
+  .home-verse { background:rgba(201,168,76,0.05); border:1px solid rgba(201,168,76,0.15); border-radius:12px; padding:24px 36px; max-width:700px; margin:0 auto 44px; }
+  .home-verse-ref { font-family:'Montserrat',sans-serif; font-size:10px; font-weight:600; letter-spacing:3px; color:var(--gold); margin-bottom:10px; text-transform:uppercase; }
+  .home-verse-text { font-size:13px; line-height:2.1; font-weight:300; opacity:0.9; }
+  .home-blocks { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; max-width:860px; margin:0 auto; }
+  .block-card { background:var(--navy); border:1px solid rgba(201,168,76,0.14); border-radius:16px; padding:26px 18px; cursor:pointer; transition:all 0.28s cubic-bezier(0.2,0,0,1); text-align:center; position:relative; overflow:hidden; }
+  .block-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,var(--gold),transparent); transform:scaleX(0); transition:transform 0.3s; }
+  .block-card:hover { transform:translateY(-4px); border-color:rgba(201,168,76,0.38); background:var(--navy-mid); box-shadow:0 20px 50px rgba(0,0,0,0.4); }
+  .block-card:hover::before { transform:scaleX(1); }
+  .block-icon { font-size:26px; margin-bottom:12px; display:block; }
+  .block-title { font-weight:700; font-size:15px; }
+  .block-en { font-family:'Montserrat',sans-serif; font-size:10px; letter-spacing:2px; color:var(--gold); margin-top:5px; opacity:0.8; }
+
+  /* SLIDE HEADER */
+  .slide-header { text-align:center; padding:0 40px 36px; }
+  .slide-label { font-family:'Montserrat',sans-serif; font-size:10px; letter-spacing:5px; color:var(--gold); text-transform:uppercase; margin-bottom:10px; }
+  .slide-title { font-family:'Playfair Display',serif; font-weight:700; font-size:clamp(30px,5vw,52px); }
+  .back-btn { display:inline-flex; align-items:center; gap:7px; font-family:'Montserrat',sans-serif; font-size:10px; letter-spacing:2px; color:var(--text-muted); background:none; border:none; cursor:pointer; padding:0 40px 18px; transition:color 0.2s; align-self:flex-start; }
+  .back-btn:hover { color:var(--gold); }
+
+  /* OVERVIEW */
+  #overview { padding-top:96px; padding-bottom:60px; align-items:center; }
+  .overview-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; max-width:1100px; width:100%; padding:0 40px; }
+  .overview-card { background:var(--navy); border:1px solid rgba(201,168,76,0.12); border-radius:20px; padding:34px 26px; position:relative; overflow:visible; transition:transform 0.3s; }
+  .overview-card:hover { transform:translateY(-4px); }
+  .overview-num { font-family:'Playfair Display',serif; font-size:76px; font-weight:900; color:rgba(201,168,76,0.07); position:absolute; top:-10px; right:14px; line-height:1; pointer-events:none; }
+  .overview-icon-badge { width:42px; height:42px; background:linear-gradient(135deg,var(--gold),var(--gold-light)); border-radius:11px; display:flex; align-items:center; justify-content:center; font-size:19px; margin-bottom:18px; }
+  .overview-card-title { font-weight:700; font-size:19px; margin-bottom:14px; line-height:1.5; }
+  .overview-card-body { font-size:16px; line-height:2; color:var(--text-muted); font-weight:300; }
+  .overview-card-body strong { color:var(--gold-light); font-weight:500; }
+  .verse-tag {
+    display:inline-block; position:relative; margin-top:12px;
+    font-family:'Montserrat',sans-serif; font-size:10px; letter-spacing:2px;
+    color:var(--gold); border:1px solid rgba(201,168,76,0.3); border-radius:20px;
+    padding:3px 11px; cursor:default; z-index:10;
+  }
+  .verse-tag .verse-tooltip {
+    visibility:hidden; opacity:0;
+    position:absolute; bottom:calc(100% + 12px); left:50%; transform:translateX(-50%);
+    background:var(--navy-mid); border:1px solid rgba(201,168,76,0.4); border-radius:12px;
+    padding:16px 20px; width:310px; font-family:'Noto Sans KR',sans-serif;
+    font-size:13px; line-height:2; color:var(--text-main); font-weight:300;
+    letter-spacing:0; text-transform:none; white-space:normal;
+    box-shadow:0 16px 48px rgba(0,0,0,0.8);
+    pointer-events:none; transition:opacity 0.2s;
+    z-index:99999;
+  }
+  .verse-tag .verse-tooltip::after {
+    content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%);
+    border:7px solid transparent; border-top-color:rgba(201,168,76,0.4);
+  }
+  .verse-tag .verse-tooltip-ref {
+    font-family:'Montserrat',sans-serif; font-size:10px; letter-spacing:2px;
+    color:var(--gold); margin-bottom:10px; display:block;
+  }
+  .verse-tag:hover .verse-tooltip { visibility:visible; opacity:1; }
+
+  /* SCHEDULE */
+  #schedule { padding-top:96px; padding-bottom:60px; align-items:center; }
+  .schedule-layout { display:flex; gap:28px; max-width:1080px; width:100%; padding:0 40px; align-items:flex-start; }
+
+  /* Schedule list (left) */
+  .schedule-list { display:flex; flex-direction:column; gap:12px; flex:1; min-width:0; }
+  .sched-item { background:var(--navy); border:1px solid rgba(201,168,76,0.1); border-radius:14px; padding:18px 22px; display:grid; grid-template-columns:90px 1fr; gap:16px; align-items:start; transition:border-color 0.2s; position:relative; overflow:hidden; }
+  .sched-item:hover { border-color:rgba(201,168,76,0.28); }
+  .sched-item.mandatory { border-color:rgba(224,82,82,0.28); background:rgba(224,82,82,0.03); }
+  .sched-item.mandatory::after { content:'MANDATORY'; position:absolute; top:10px; right:14px; font-family:'Montserrat',sans-serif; font-size:8px; font-weight:800; letter-spacing:2px; color:var(--red); background:rgba(224,82,82,0.1); padding:3px 9px; border-radius:20px; border:1px solid rgba(224,82,82,0.28); }
+  .sched-date { text-align:center; }
+  .sched-date-main { font-family:'Montserrat',sans-serif; font-size:20px; font-weight:800; color:var(--gold); line-height:1; }
+  .sched-date-day { font-size:10px; color:var(--text-muted); margin-top:3px; letter-spacing:0.5px; }
+  .sched-time { font-family:'Montserrat',sans-serif; font-size:10px; color:var(--gold-light); font-weight:600; letter-spacing:1px; margin-bottom:4px; }
+  .sched-location { font-size:11px; color:var(--text-muted); margin-bottom:6px; }
+  .sched-desc { font-size:12px; color:var(--text-main); line-height:1.8; font-weight:300; }
+
+  /* Attendance panel (right) */
+  .attend-panel { width:340px; flex-shrink:0; display:flex; flex-direction:column; gap:14px; }
+
+  /* Identity box */
+  .identity-box { background:var(--navy); border:1px solid rgba(201,168,76,0.18); border-radius:14px; padding:18px 20px; }
+  .identity-box-title { font-family:'Montserrat',sans-serif; font-size:9px; letter-spacing:3px; color:var(--gold); text-transform:uppercase; margin-bottom:14px; }
+  .identity-input-row { display:flex; gap:7px; }
+  .member-name-input { flex:1; background:rgba(255,255,255,0.04); border:1px solid rgba(201,168,76,0.18); border-radius:8px; padding:7px 12px; color:var(--text-main); font-size:12px; font-family:'Noto Sans KR',sans-serif; outline:none; min-width:0; }
+  .member-name-input:focus { border-color:var(--gold); }
+  .member-role-sel { background:var(--navy-mid); border:1px solid rgba(201,168,76,0.18); color:var(--text-muted); font-family:'Noto Sans KR',sans-serif; font-size:11px; padding:7px 8px; border-radius:8px; outline:none; cursor:pointer; width:80px; flex-shrink:0; }
+  .member-add-btn { background:var(--gold); color:var(--deep); border:none; border-radius:8px; padding:7px 14px; font-size:12px; font-weight:700; cursor:pointer; white-space:nowrap; transition:opacity 0.2s; font-family:'Noto Sans KR',sans-serif; }
+  .member-add-btn:hover { opacity:0.85; }
+  .identity-confirmed { display:none; align-items:center; gap:10px; flex-wrap:wrap; }
+  .user-badge { display:flex; align-items:center; gap:7px; background:var(--navy-mid); border:1px solid rgba(201,168,76,0.2); border-radius:20px; padding:5px 14px; font-size:13px; }
+  .user-role-tag { font-family:'Montserrat',sans-serif; font-size:9px; font-weight:700; letter-spacing:1px; color:var(--gold); }
+  .change-user-btn { background:none; border:none; color:var(--text-muted); font-size:11px; cursor:pointer; font-family:'Noto Sans KR',sans-serif; text-decoration:underline; padding:0; }
+  .change-user-btn:hover { color:var(--gold); }
+  .saving-indicator { font-size:10px; color:var(--text-muted); min-height:16px; margin-top:8px; text-align:right; }
+
+  /* Attendance tables */
+  .attend-tables { display:flex; flex-direction:column; gap:10px; }
+  .attend-card { background:var(--navy); border:1px solid rgba(201,168,76,0.1); border-radius:14px; overflow:hidden; }
+  .attend-card.mandatory-card { border-color:rgba(224,82,82,0.22); }
+  .attend-card-head { display:flex; align-items:center; justify-content:space-between; padding:12px 18px; background:rgba(255,255,255,0.02); border-bottom:1px solid rgba(201,168,76,0.07); cursor:pointer; user-select:none; }
+  .mandatory-card .attend-card-head { background:rgba(224,82,82,0.04); border-bottom-color:rgba(224,82,82,0.08); }
+  .attend-head-left { display:flex; align-items:center; gap:12px; }
+  .attend-date-num { font-family:'Montserrat',sans-serif; font-size:16px; font-weight:800; color:var(--gold); min-width:36px; }
+  .mandatory-card .attend-date-num { color:var(--red); }
+  .attend-date-name { font-weight:700; font-size:13px; }
+  .attend-date-sub { font-size:10px; color:var(--text-muted); margin-top:1px; }
+  .attend-count-badges { display:flex; gap:6px; align-items:center; }
+  .badge { font-family:'Montserrat',sans-serif; font-size:10px; font-weight:700; padding:3px 9px; border-radius:20px; }
+  .badge-go { background:rgba(45,125,70,0.2); color:#5DC87A; border:1px solid rgba(45,125,70,0.3); }
+  .badge-no { background:rgba(224,82,82,0.15); color:#E07A7A; border:1px solid rgba(224,82,82,0.25); }
+  .attend-toggle-icon { font-size:11px; color:var(--text-muted); transition:transform 0.2s; }
+  .attend-card.open .attend-toggle-icon { transform:rotate(180deg); }
+  .attend-body { display:none; padding:0; }
+  .attend-card.open .attend-body { display:block; }
+  .my-att-row { display:flex; align-items:center; justify-content:space-between; padding:12px 18px; background:rgba(201,168,76,0.04); border-bottom:1px solid rgba(255,255,255,0.05); }
+  .my-att-label { font-size:12px; font-weight:700; color:var(--gold-light); }
+  .att-toggle-wrap { display:flex; border-radius:20px; overflow:hidden; border:1px solid rgba(255,255,255,0.08); }
+  .att-btn { background:transparent; border:none; font-size:11px; font-weight:700; font-family:'Montserrat',sans-serif; padding:4px 14px; cursor:pointer; transition:all 0.18s; color:var(--text-muted); letter-spacing:0.5px; }
+  .att-btn.selected-go { background:rgba(45,125,70,0.25); color:#5DC87A; }
+  .att-btn.selected-no { background:rgba(224,82,82,0.2); color:#E07A7A; }
+  .no-user-prompt { padding:12px 18px; font-size:11px; color:var(--text-muted); font-style:italic; text-align:center; border-bottom:1px solid rgba(255,255,255,0.05); }
+  .members-list { padding:10px 18px 14px; }
+  .members-list-title { font-family:'Montserrat',sans-serif; font-size:9px; letter-spacing:2px; color:var(--text-muted); text-transform:uppercase; margin-bottom:10px; }
+  .attend-row { display:flex; align-items:center; justify-content:space-between; padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.03); }
+  .attend-row:last-child { border-bottom:none; }
+  .attend-member-info { display:flex; align-items:center; gap:8px; }
+  .attend-member-role { font-family:'Montserrat',sans-serif; font-size:9px; font-weight:700; color:var(--gold); opacity:0.75; min-width:44px; }
+  .attend-member-name { font-size:13px; font-weight:500; }
+  .attend-status { font-size:11px; font-weight:700; }
+  .status-go { color:#5DC87A; }
+  .status-no { color:#E07A7A; }
+  .status-none { color:var(--text-muted); }
+  .attend-empty { font-size:12px; color:var(--text-muted); text-align:center; padding:10px 0; font-style:italic; }
+
+  /* WORSHIP SLIDES */
+  .worship-slide { padding-top:86px; padding-bottom:60px; align-items:center; }
+  .worship-content { max-width:900px; width:100%; padding:0 32px; display:flex; flex-direction:column; gap:22px; }
+  .yt-section { display:flex; flex-direction:column; gap:9px; }
+  .yt-section-label { font-family:'Montserrat',sans-serif; font-size:9px; letter-spacing:3px; color:var(--gold); text-transform:uppercase; }
+  .yt-embeds { display:flex; flex-wrap:wrap; gap:9px; }
+  .yt-embed-block { background:var(--navy); border:1px solid rgba(201,168,76,0.14); border-radius:10px; overflow:hidden; width:178px; flex-shrink:0; position:relative; }
+  .yt-embed-block iframe { display:block; width:100%; height:98px; border:none; }
+  .yt-embed-remove { position:absolute; top:4px; right:4px; background:rgba(0,0,0,0.7); color:#fff; border:none; border-radius:50%; width:17px; height:17px; font-size:9px; cursor:pointer; display:flex; align-items:center; justify-content:center; z-index:2; }
+  .yt-input-row { display:flex; gap:7px; align-items:center; }
+  .yt-input { flex:1; background:var(--navy); border:1px solid rgba(201,168,76,0.18); border-radius:8px; padding:7px 13px; color:var(--text-main); font-size:12px; font-family:'Noto Sans KR',sans-serif; outline:none; }
+  .yt-input:focus { border-color:var(--gold); }
+  .yt-add-btn { background:var(--gold); color:var(--deep); border:none; border-radius:8px; padding:7px 15px; font-size:12px; font-weight:700; cursor:pointer; white-space:nowrap; font-family:'Noto Sans KR',sans-serif; transition:opacity 0.2s; }
+  .yt-add-btn:hover { opacity:0.85; }
+  .song-list-section {}
+  .song-list-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+  .song-list-title { font-family:'Montserrat',sans-serif; font-size:9px; letter-spacing:3px; color:var(--gold); text-transform:uppercase; }
+  .edit-btn { font-family:'Montserrat',sans-serif; font-size:11px; font-weight:700; letter-spacing:1px; padding:5px 16px; border-radius:20px; border:1px solid var(--gold); background:transparent; color:var(--gold); cursor:pointer; transition:all 0.2s; }
+  .edit-btn:hover, .edit-btn.save { background:var(--gold); color:var(--deep); }
+  .song-list { display:flex; flex-direction:column; gap:7px; }
+  .song-item { background:var(--navy); border:1px solid rgba(201,168,76,0.09); border-radius:11px; padding:13px 16px; display:flex; align-items:center; gap:12px; cursor:default; transition:border-color 0.2s; }
+  .song-item.dragging { opacity:0.5; border-color:var(--gold); }
+  .song-item.drag-over { border-color:var(--gold-light); background:var(--navy-mid); }
+  .song-item[draggable="true"] { cursor:grab; }
+  .song-drag-handle { color:var(--text-muted); font-size:13px; cursor:grab; flex-shrink:0; opacity:0.5; }
+  .song-num { font-family:'Montserrat',sans-serif; font-size:10px; font-weight:700; color:var(--gold); width:18px; text-align:center; flex-shrink:0; }
+  .song-name-input { flex:1; background:transparent; border:none; color:var(--text-main); font-size:14px; font-weight:500; font-family:'Noto Sans KR',sans-serif; outline:none; cursor:default; }
+  .song-name-input.editable { background:rgba(255,255,255,0.04); border-bottom:1px solid rgba(201,168,76,0.28); cursor:text; padding:2px 5px; border-radius:4px; }
+  .song-key-select { background:var(--navy-mid); border:1px solid rgba(201,168,76,0.18); color:var(--gold); font-family:'Montserrat',sans-serif; font-size:11px; font-weight:700; padding:4px 7px; border-radius:7px; outline:none; cursor:pointer; flex-shrink:0; min-width:56px; }
+  .song-key-select:disabled { opacity:0.5; cursor:default; }
+  .sheet-section { background:var(--navy); border:1px solid rgba(201,168,76,0.11); border-radius:14px; padding:22px; }
+  .sheet-section-title { font-family:'Montserrat',sans-serif; font-size:9px; letter-spacing:3px; color:var(--gold); text-transform:uppercase; margin-bottom:14px; }
+  .sheet-upload-area { border:1.5px dashed rgba(201,168,76,0.23); border-radius:11px; padding:22px; text-align:center; cursor:pointer; transition:all 0.2s; }
+  .sheet-upload-area:hover { border-color:var(--gold); background:rgba(201,168,76,0.03); }
+  .sheet-upload-icon { font-size:26px; margin-bottom:7px; }
+  .sheet-upload-text { font-size:12px; color:var(--text-muted); }
+  .sheet-upload-text span { color:var(--gold); font-weight:500; }
+  .sheet-file-input { display:none; }
+  .sheet-files-list { display:flex; flex-direction:column; gap:7px; margin-top:11px; }
+  .sheet-file-item { display:flex; align-items:center; justify-content:space-between; background:rgba(201,168,76,0.04); border:1px solid rgba(201,168,76,0.09); border-radius:8px; padding:9px 14px; }
+  .sheet-file-name { font-size:12px; }
+  .sheet-file-actions { display:flex; gap:7px; }
+  .sheet-download-btn, .sheet-remove-btn { font-size:11px; font-weight:700; padding:4px 11px; border-radius:20px; border:none; cursor:pointer; transition:opacity 0.2s; font-family:'Noto Sans KR',sans-serif; }
+  .sheet-download-btn { background:var(--gold); color:var(--deep); }
+  .sheet-remove-btn { background:rgba(224,82,82,0.18); color:#E07A7A; border:1px solid rgba(224,82,82,0.28); }
+  .sheet-download-btn:hover, .sheet-remove-btn:hover { opacity:0.8; }
+  .notes-section { background:var(--navy); border:1px solid rgba(201,168,76,0.11); border-radius:14px; padding:22px; }
+  .notes-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+  .notes-title { font-family:'Montserrat',sans-serif; font-size:9px; letter-spacing:3px; color:var(--gold); text-transform:uppercase; }
+  .notes-textarea { width:100%; background:rgba(255,255,255,0.03); border:1px solid rgba(201,168,76,0.14); border-radius:9px; padding:14px; color:var(--text-main); font-size:13px; font-family:'Noto Sans KR',sans-serif; line-height:2; resize:vertical; outline:none; min-height:90px; font-weight:300; }
+  .notes-textarea:focus { border-color:var(--gold); }
+  .notes-display { font-size:13px; line-height:2.1; font-weight:300; white-space:pre-wrap; min-height:56px; color:var(--text-main); }
+  .notes-display:empty::before { content:'이 날의 찬양을 선택한 이유와 말씀을 기록하세요...'; color:var(--text-muted); font-style:italic; }
+
+  /* scrollbar */
+  ::-webkit-scrollbar { width:4px; }
+  ::-webkit-scrollbar-track { background:var(--deep); }
+  ::-webkit-scrollbar-thumb { background:rgba(201,168,76,0.28); border-radius:2px; }
+</style>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyD-CmN6Jgp5wHy5MQWobQnqK5FWiDWdqH4",
+    authDomain: "living-hope-2026.firebaseapp.com",
+    databaseURL: "https://living-hope-2026-default-rtdb.firebaseio.com",
+    projectId: "living-hope-2026",
+    storageBucket: "living-hope-2026.firebasestorage.app",
+    messagingSenderId: "526815692559",
+    appId: "1:526815692559:web:19aa8142db28b7e583607a"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+</script>
+</head>
+<body>
+
+<nav class="nav-bar">
+  <div class="nav-logo" onclick="showSlide('home')">LIVING HOPE</div>
+  <div class="nav-links">
+    <button class="nav-btn" onclick="showSlide('home')">홈</button>
+    <button class="nav-btn" onclick="showSlide('overview')">개요</button>
+    <button class="nav-btn" onclick="showSlide('schedule')">연습일정</button>
+    <button class="nav-btn" onclick="showSlide('eve1')">첫째날 저녁</button>
+    <button class="nav-btn" onclick="showSlide('eve-last')">마지막날 저녁</button>
+    <button class="nav-btn" onclick="showSlide('after')">후집회</button>
+    <button class="nav-btn" onclick="showSlide('prayer')">기도찬양</button>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div class="slide active" id="home">
+  <div class="home-bg"></div>
+  <div class="cross-deco c1"></div><div class="cross-deco c2"></div>
+  <div class="cross-deco c3"></div><div class="cross-deco c4"></div>
+  <div class="home-content">
+    <div class="home-year">2026 · 한어 중등부 · 여름 수양회</div>
+    <span class="home-title-living">Living</span>
+    <span class="home-title-hope">Hope</span>
+    <div class="home-divider"></div>
+    <div class="home-verse">
+      <div class="home-verse-ref">로마서 5장 3절 — 8절</div>
+      <div class="home-verse-text">
+        다만 이뿐 아니라 우리가 환난 중에도 즐거워하나니 이는 환난은 인내를, 인내는 연단을,<br>
+        연단은 소망을 이루는 줄 앎이로다. 소망이 우리를 부끄럽게 하지 아니함은 우리에게 주신<br>
+        성령으로 말미암아 하나님의 사랑이 우리 마음에 부은 바 됨이니 우리가 아직 연약할 때에<br>
+        기약대로 그리스도께서 경건하지 않은 자를 위하여 죽으셨도다. 의인을 위하여 죽는 자가<br>
+        쉽지 않고 선인을 위하여 용감히 죽는 자가 혹 있거니와 우리가 아직 죄인 되었을 때에<br>
+        그리스도께서 우리를 위하여 죽으심으로 하나님께서 우리에 대한 자기의 사랑을 확증하셨느니라.
+      </div>
+    </div>
+    <div class="home-blocks">
+      <div class="block-card" onclick="showSlide('overview')"><span class="block-icon">🎯</span><div class="block-title">개요</div><div class="block-en">Overview</div></div>
+      <div class="block-card" onclick="showSlide('schedule')"><span class="block-icon">📅</span><div class="block-title">연습일정</div><div class="block-en">Schedule</div></div>
+      <div class="block-card" onclick="showSlide('eve1')"><span class="block-icon">🌙</span><div class="block-title">첫째날 저녁</div><div class="block-en">First Evening</div></div>
+      <div class="block-card" onclick="showSlide('eve-last')"><span class="block-icon">✨</span><div class="block-title">마지막날 저녁</div><div class="block-en">Last Evening</div></div>
+      <div class="block-card" onclick="showSlide('after')"><span class="block-icon">🔥</span><div class="block-title">후집회</div><div class="block-en">After Service</div></div>
+      <div class="block-card" onclick="showSlide('prayer')"><span class="block-icon">🙏</span><div class="block-title">기도찬양</div><div class="block-en">Prayer & Worship</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- OVERVIEW -->
+<div class="slide" id="overview">
+  <button class="back-btn" onclick="showSlide('home')">← 홈으로</button>
+  <div class="slide-header"><div class="slide-label">Overview</div><div class="slide-title">개요</div></div>
+  <div class="overview-grid">
+    <div class="overview-card">
+      <div class="overview-num">1</div>
+      <div class="overview-icon-badge">🧭</div>
+      <div class="overview-card-title">수양회에 가는 이유</div>
+      <div class="overview-card-body">우리는 왜 이 수양회에 참여하는가? 단순한 행사 참여가 아니라, <strong>내가 진정으로 소망하는 것</strong>이 무엇인지 먼저 점검해야 합니다.<br><br>하나님 앞에서 솔직하게 내 마음의 동기를 살피고, 이 수양회를 통해 하나님께서 우리에게 무엇을 말씀하시려는지 열린 마음으로 나아가는 것이 시작입니다.</div>
+    </div>
+    <div class="overview-card">
+      <div class="overview-num">2</div>
+      <div class="overview-icon-badge">🎵</div>
+      <div class="overview-card-title">퍼포먼스가 아닌<br>예배</div>
+      <div class="overview-card-body">우리의 찬양은 <strong>공연이 아닙니다.</strong> 잘 보이기 위한, 혹은 잘하기 위한 찬양이 아니라 하나님의 임재 앞에 나아가는 <strong>진정한 예배</strong>여야 합니다.<br><br>기술적인 완성도는 중요하지만 그것이 목적이 되어선 안 됩니다. 우리의 마음이 하나님을 향할 때, 그 찬양은 예배가 됩니다.</div>
+    </div>
+    <div class="overview-card">
+      <div class="overview-num">3</div>
+      <div class="overview-icon-badge">🤝</div>
+      <div class="overview-card-title">각자의 역할에<br>충실</div>
+      <div class="overview-card-body" style="overflow:visible"><strong>인도자</strong>는 노래하는 사람이 아닌 예배를 인도하는 사람.<br><strong>보컬</strong>은 보컬의, <strong>악기</strong>는 악기의,<br><strong>음향</strong>은 음향의, <strong>바디워쉽</strong>은 바디워쉽의 역할이 있습니다.<br><br>각자가 맡은 책임을 정확히 이해하고 <strong>함께 협력할 때 선이 이루어집니다.</strong><br>
+        <span class="verse-tag">로마서 8:28<span class="verse-tooltip"><span class="verse-tooltip-ref">로마서 8장 28절</span>우리가 알거니와 하나님을 사랑하는 자 곧 그의 뜻대로 부르심을 입은 자들에게는 모든 것이 합력하여 선을 이루느니라.</span></span></div>
+    </div>
+  </div>
+</div>
+
+<!-- SCHEDULE -->
+<div class="slide" id="schedule">
+  <button class="back-btn" onclick="showSlide('home')">← 홈으로</button>
+  <div class="slide-header"><div class="slide-label">Practice Schedule</div><div class="slide-title">연습 일정</div></div>
+  <div class="schedule-layout">
+
+    <!-- Left: session list -->
+    <div class="schedule-list">
+      <div class="sched-item">
+        <div class="sched-date"><div class="sched-date-main">5/23</div><div class="sched-date-day">토요일</div></div>
+        <div><div class="sched-time">2:00 PM — 4:00 PM</div><div class="sched-location">📍 은혜채플</div><div class="sched-desc">셋 리스트 마무리 · 말씀 묵상 · 찬양 Flow & 키 브레인스토밍. 악기는 <strong>피아노 · 기타만</strong> 사용 예정.</div></div>
+      </div>
+      <div class="sched-item">
+        <div class="sched-date"><div class="sched-date-main">5/30</div><div class="sched-date-day">토요일</div></div>
+        <div><div class="sched-time">2:00 PM — 4:00 PM</div><div class="sched-location">📍 은혜채플</div><div class="sched-desc">윤기쌤과 함께하는 연습.</div></div>
+      </div>
+      <div class="sched-item">
+        <div class="sched-date"><div class="sched-date-main">6/2</div><div class="sched-date-day">화요일</div></div>
+        <div><div class="sched-time">7:00 PM — 9:30 PM</div><div class="sched-location">📍 KDC</div><div class="sched-desc">실질적인 연습 돌입. Flow보다 Individual 곡 위주로 연습 및 조정.</div></div>
+      </div>
+      <div class="sched-item">
+        <div class="sched-date"><div class="sched-date-main">6/6</div><div class="sched-date-day">토요일</div></div>
+        <div><div class="sched-time">2:00 PM — 4:00 PM</div><div class="sched-location">📍 은혜채플</div><div class="sched-desc">윤기쌤과 함께하는 연습.</div></div>
+      </div>
+      <div class="sched-item">
+        <div class="sched-date"><div class="sched-date-main">6/9</div><div class="sched-date-day">화요일</div></div>
+        <div><div class="sched-time">7:00 PM — 9:30 PM</div><div class="sched-location">📍 KDC</div><div class="sched-desc">진현쌤과 연습 (미정).</div></div>
+      </div>
+      <div class="sched-item mandatory">
+        <div class="sched-date"><div class="sched-date-main">6/11</div><div class="sched-date-day">목요일</div></div>
+        <div><div class="sched-time">6:00 PM — 9:30 PM</div><div class="sched-location">📍 KDC</div><div class="sched-desc">Individual 곡 완성 후 Flow로 전환. 반드시 참석해 주세요.</div></div>
+      </div>
+      <div class="sched-item mandatory">
+        <div class="sched-date"><div class="sched-date-main">6/16</div><div class="sched-date-day">화요일</div></div>
+        <div><div class="sched-time">6:00 PM — 9:30 PM</div><div class="sched-location">📍 KDC</div><div class="sched-desc">리허설 수준 — 예배 형식으로 진행. 수양회 전 최종 점검. 반드시 참석해 주세요.</div></div>
+      </div>
+    </div>
+
+    <!-- Right: shared attendance panel -->
+    <div class="attend-panel">
+
+      <!-- Identity box -->
+      <div class="identity-box">
+        <div class="identity-box-title">👤 내 정보 입력</div>
+        <div class="identity-input-row" id="identityInputRow">
+          <input class="member-name-input" id="newMemberName" type="text" placeholder="이름"
+            onkeyup="if(event.key==='Enter'&&!event.isComposing)confirmIdentity()">
+          <select class="member-role-sel" id="newMemberRole">
+            <option>인도자</option><option>보컬</option><option>피아노</option>
+            <option>기타</option><option>베이스</option><option>드럼</option>
+            <option>음향</option><option>바디워쉽</option><option>기타역할</option>
+          </select>
+          <button class="member-add-btn" onclick="confirmIdentity()">확인</button>
+        </div>
+        <div class="identity-confirmed" id="identityConfirmed">
+          <div class="user-badge">
+            <span class="user-role-tag" id="displayRole"></span>
+            <span id="displayName"></span>
+          </div>
+          <button class="change-user-btn" onclick="changeIdentity()">변경</button>
+        </div>
+        <div class="saving-indicator" id="savingIndicator"></div>
+      </div>
+
+      <!-- Attendance tables -->
+      <div class="attend-tables" id="attendTables"></div>
+    </div>
+  </div>
+</div>
+
+<!-- WORSHIP SLIDES -->
+<div class="slide worship-slide" id="eve1" data-label="First Evening" data-title="첫째날 저녁"></div>
+<div class="slide worship-slide" id="eve-last" data-label="Last Evening" data-title="마지막날 저녁"></div>
+<div class="slide worship-slide" id="after" data-label="After Service" data-title="후집회"></div>
+<div class="slide worship-slide" id="prayer" data-label="Prayer & Worship" data-title="기도찬양"></div>
+
+<script>
+// ===== SLIDE NAV =====
+function showSlide(id) {
+  document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active-nav'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+  const map = {home:0,overview:1,schedule:2,eve1:3,'eve-last':4,after:5,prayer:6};
+  const idx = map[id];
+  if(idx!==undefined){ const btns=document.querySelectorAll('.nav-btn'); if(btns[idx]) btns[idx].classList.add('active-nav'); }
+}
+
+// ===== SHARED ATTENDANCE (window.storage) =====
+const SESSIONS = [
+  { id:'s523', date:'5/23', day:'토', label:'은혜채플', time:'2–4pm', mandatory:false },
+  { id:'s530', date:'5/30', day:'토', label:'은혜채플', time:'2–4pm', mandatory:false },
+  { id:'s602', date:'6/2',  day:'화', label:'KDC',     time:'7–9:30pm', mandatory:false },
+  { id:'s606', date:'6/6',  day:'토', label:'은혜채플', time:'2–4pm', mandatory:false },
+  { id:'s609', date:'6/9',  day:'화', label:'KDC',     time:'7–9:30pm', mandatory:false },
+  { id:'s611', date:'6/11', day:'목', label:'KDC',     time:'6–9:30pm', mandatory:true },
+  { id:'s616', date:'6/16', day:'화', label:'KDC',     time:'6–9:30pm', mandatory:true },
+];
+
+let currentUser = null;   // { name, role }
+let sharedData  = {};     // { [sessionId]: { "name::role": 'go'|'no'|null } }
+const openCards = new Set();
+
+function showSaving(msg, ms=2000) {
+  const el = document.getElementById('savingIndicator');
+  if (!el) return;
+  el.textContent = msg;
+  if (ms) setTimeout(() => { el.textContent = ''; }, ms);
+}
+
+function loadShared() {
+  db.ref('attendance').on('value', snapshot => {
+    sharedData = snapshot.val() || {};
+    renderAttendTables();
+  }, err => {
+    console.log('Firebase load err:', err);
+    sharedData = {};
+    renderAttendTables();
+  });
+}
+
+function saveShared() {
+  db.ref('attendance').set(sharedData)
+    .then(() => showSaving('저장됨 ✓'))
+    .catch(() => showSaving('저장 실패 ✗'));
+}
+
+function confirmIdentity() {
+  const name = document.getElementById('newMemberName').value.trim();
+  const role = document.getElementById('newMemberRole').value;
+  if (!name) { document.getElementById('newMemberName').focus(); return; }
+  currentUser = { name, role };
+  document.getElementById('identityInputRow').style.display = 'none';
+  const conf = document.getElementById('identityConfirmed');
+  conf.style.display = 'flex';
+  document.getElementById('displayRole').textContent = role;
+  document.getElementById('displayName').textContent = name;
+  renderAttendTables();
+}
+
+function changeIdentity() {
+  currentUser = null;
+  document.getElementById('identityInputRow').style.display = 'flex';
+  document.getElementById('identityConfirmed').style.display = 'none';
+  renderAttendTables();
+}
+
+async function setAttend(sessionId, val) {
+  if (!currentUser) return;
+  const key = currentUser.name + '::' + currentUser.role;
+  if (!sharedData[sessionId]) sharedData[sessionId] = {};
+  sharedData[sessionId][key] = sharedData[sessionId][key] === val ? null : val;
+  renderAttendTables();
+  saveShared();
+}
+
+function toggleSession(sessionId) {
+  const card = document.getElementById('ac_' + sessionId);
+  if (!card) return;
+  card.classList.toggle('open');
+  // sync openCards set
+  if (card.classList.contains('open')) openCards.add(sessionId);
+  else openCards.delete(sessionId);
+  // re-render just the badge counts (don't re-render whole list — keep DOM stable)
+  // Actually just re-render fully to keep it simple
+  renderAttendTables();
+}
+
+function renderAttendTables() {
+  const el = document.getElementById('attendTables');
+  if (!el) return;
+  el.innerHTML = SESSIONS.map(s => {
+    const data = sharedData[s.id] || {};
+    const entries = Object.entries(data);
+    const goCount = entries.filter(([,v]) => v === 'go').length;
+    const noCount = entries.filter(([,v]) => v === 'no').length;
+    const isOpen  = openCards.has(s.id);
+
+    let myStatus = null;
+    if (currentUser) {
+      myStatus = data[currentUser.name + '::' + currentUser.role] || null;
+    }
+
+    const myRow = currentUser
+      ? `<div class="my-att-row">
+          <div class="my-att-label">내 참석 여부</div>
+          <div class="att-toggle-wrap">
+            <button class="att-btn ${myStatus==='go'?'selected-go':''}" onclick="setAttend('${s.id}','go')">참석</button>
+            <button class="att-btn ${myStatus==='no'?'selected-no':''}" onclick="setAttend('${s.id}','no')">불참</button>
+          </div>
+        </div>`
+      : `<div class="no-user-prompt">이름을 먼저 입력하면 참석 여부를 선택할 수 있어요</div>`;
+
+    const memberRows = entries.length === 0
+      ? `<div class="attend-empty">아직 응답이 없어요</div>`
+      : entries.map(([key, val]) => {
+          const [name, role] = key.split('::');
+          const cls   = val==='go' ? 'status-go' : val==='no' ? 'status-no' : 'status-none';
+          const label = val==='go' ? '참석' : val==='no' ? '불참' : '미정';
+          return `<div class="attend-row">
+            <div class="attend-member-info">
+              <span class="attend-member-role">${role||''}</span>
+              <span class="attend-member-name">${name}</span>
+            </div>
+            <span class="attend-status ${cls}">${label}</span>
+          </div>`;
+        }).join('');
+
+    return `
+    <div class="attend-card ${s.mandatory?'mandatory-card':''} ${isOpen?'open':''}" id="ac_${s.id}">
+      <div class="attend-card-head" onclick="toggleSession('${s.id}')">
+        <div class="attend-head-left">
+          <div class="attend-date-num">${s.date}</div>
+          <div>
+            <div class="attend-date-name">${s.day}요일 · ${s.label}</div>
+            <div class="attend-date-sub">${s.time}${s.mandatory?' · 🔴 필참':''}</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div class="attend-count-badges">
+            <span class="badge badge-go">✓ ${goCount}</span>
+            <span class="badge badge-no">✗ ${noCount}</span>
+          </div>
+          <span class="attend-toggle-icon">${isOpen?'▲':'▼'}</span>
+        </div>
+      </div>
+      <div class="attend-body">${myRow}<div class="members-list"><div class="members-list-title">팀원 응답 현황</div>${memberRows}</div></div>
+    </div>`;
+  }).join('');
+}
+
+// init — attendance data loaded in INIT block below
+
+// ===== WORSHIP SLIDES =====
+const worshipSlides = ['eve1','eve-last','after','prayer'];
+const slideData = {};
+const KEYS = ['C','C#','Db','D','D#','Eb','E','F','F#','Gb','G','G#','Ab','A','A#','Bb','B'];
+
+const WORSHIP_STORAGE_KEY = 'lh_worship_v1';
+const EDIT_PASSWORD = '1234'; // 수정 비밀번호
+const NO_NOTES_SLIDES = ['after','prayer']; // 이 슬라이드는 노트 섹션 없음
+const SONG_COUNT = { 'eve1':6, 'eve-last':6, 'after':10, 'prayer':10 };
+
+function defaultSongs(sid) {
+  return Array.from({length: SONG_COUNT[sid]||6}, () => ({name:'', key:'C'}));
+}
+
+worshipSlides.forEach(sid => {
+  slideData[sid] = { songs: defaultSongs(sid), ytLinks:[], notes:'', files:[], isEditing:false, dragSrc:null };
+});
+
+function loadWorshipData() {
+  db.ref('worship').once('value', snapshot => {
+    const saved = snapshot.val() || {};
+    worshipSlides.forEach(sid => {
+      if (saved[sid]) {
+        const s = saved[sid];
+        slideData[sid].songs   = s.songs   || defaultSongs(sid);
+        slideData[sid].ytLinks = s.ytLinks || [];
+        slideData[sid].notes   = s.notes   || '';
+        while (slideData[sid].songs.length < (SONG_COUNT[sid]||6))
+          slideData[sid].songs.push({name:'', key:'C'});
+      }
+    });
+    worshipSlides.forEach(sid => buildWorshipSlide(sid));
+  }, err => {
+    console.log('worship load err:', err);
+    worshipSlides.forEach(sid => buildWorshipSlide(sid));
+  });
+}
+
+function saveWorshipData() {
+  const toSave = {};
+  worshipSlides.forEach(sid => {
+    toSave[sid] = {
+      songs:   slideData[sid].songs,
+      ytLinks: slideData[sid].ytLinks,
+      notes:   slideData[sid].notes,
+    };
+  });
+  db.ref('worship').set(toSave)
+    .then(() => console.log('worship saved'))
+    .catch(e => console.log('worship save err:', e));
+}
+
+function requestEditPassword(sid) {
+  const pw = prompt('수정 비밀번호를 입력하세요:');
+  if (pw === EDIT_PASSWORD) {
+    slideData[sid].isEditing = true;
+    buildWorshipSlide(sid);
+  } else if (pw !== null) {
+    alert('비밀번호가 틀렸습니다.');
+  }
+}
+
+function buildWorshipSlide(sid) {
+  const el = document.getElementById(sid);
+  const label = el.dataset.label, title = el.dataset.title;
+  const data = slideData[sid];
+  const hasNotes = !NO_NOTES_SLIDES.includes(sid);
+
+  const songsHtml = data.songs.map((s,i) => `
+    <div class="song-item" id="${sid}-song-${i}" draggable="${data.isEditing}"
+      ondragstart="onDragStart(event,'${sid}',${i})" ondragover="onDragOver(event)"
+      ondrop="onDrop(event,'${sid}',${i})" ondragend="onDragEnd(event,'${sid}')">
+      <span class="song-drag-handle">${data.isEditing?'⠿':'·'}</span>
+      <span class="song-num">${i+1}</span>
+      <input class="song-name-input ${data.isEditing?'editable':''}" id="${sid}-name-${i}"
+        type="text" placeholder="찬양 제목..." value="${s.name}"
+        ${data.isEditing?'':'readonly'} onchange="slideData['${sid}'].songs[${i}].name=this.value">
+      <select class="song-key-select" id="${sid}-key-${i}" ${data.isEditing?'':'disabled'}
+        onchange="slideData['${sid}'].songs[${i}].key=this.value">
+        ${KEYS.map(k=>`<option value="${k}" ${s.key===k?'selected':''}>${k}</option>`).join('')}
+      </select>
+    </div>`).join('');
+
+  const ytEmbedsHtml = data.ytLinks.map((url,i)=>{
+    const vid=ytVideoId(url); if(!vid) return '';
+    return `<div class="yt-embed-block"><button class="yt-embed-remove" onclick="removeYT('${sid}',${i})">✕</button><iframe src="https://www.youtube.com/embed/${vid}" allowfullscreen loading="lazy"></iframe></div>`;
+  }).join('');
+
+  const filesHtml = data.files.map((f,i)=>`
+    <div class="sheet-file-item">
+      <span class="sheet-file-name">📄 ${f.name}</span>
+      <div class="sheet-file-actions">
+        <button class="sheet-download-btn" onclick="downloadFile('${sid}',${i})">다운로드</button>
+        <button class="sheet-remove-btn" onclick="removeFile('${sid}',${i})">삭제</button>
+      </div>
+    </div>`).join('');
+
+  const editBtnHtml = data.isEditing
+    ? `<button class="edit-btn save" onclick="toggleEdit('${sid}')">💾 저장</button>`
+    : `<button class="edit-btn" onclick="requestEditPassword('${sid}')">✏️ 편집</button>`;
+
+  const notesHtml = hasNotes ? `
+    <div class="notes-section">
+      <div class="notes-header">
+        <div class="notes-title">📝 찬양 선택 이유 · 말씀</div>
+        <button class="edit-btn" id="${sid}-notesbtn" onclick="toggleNotesEdit('${sid}')">✏️ 편집</button>
+      </div>
+      <div class="notes-display" id="${sid}-notes-display">${data.notes}</div>
+      <textarea class="notes-textarea" id="${sid}-notes-ta" style="display:none"
+        placeholder="이 날의 찬양을 선택한 이유와 말씀을 적어주세요...">${data.notes}</textarea>
+    </div>` : '';
+
+  el.innerHTML = `
+    <button class="back-btn" onclick="showSlide('home')">← 홈으로</button>
+    <div class="slide-header"><div class="slide-label">${label}</div><div class="slide-title">${title}</div></div>
+    <div class="worship-content">
+      <div class="yt-section">
+        <div class="yt-section-label">🎬 유튜브 링크</div>
+        <div class="yt-embeds" id="${sid}-yt-embeds">${ytEmbedsHtml}</div>
+        <div class="yt-input-row">
+          <input class="yt-input" id="${sid}-yt-input" type="text" placeholder="YouTube 링크 붙여넣기...">
+          <button class="yt-add-btn" onclick="addYT('${sid}')">+ 추가</button>
+        </div>
+      </div>
+      <div class="song-list-section">
+        <div class="song-list-header">
+          <div class="song-list-title">🎵 찬양 리스트</div>
+          ${editBtnHtml}
+        </div>
+        <div class="song-list" id="${sid}-songlist">${songsHtml}</div>
+      </div>
+      <div class="sheet-section">
+        <div class="sheet-section-title">📂 악보 업로드 / 다운로드</div>
+        <div class="sheet-upload-area" onclick="document.getElementById('${sid}-file-input').click()">
+          <div class="sheet-upload-icon">📁</div>
+          <div class="sheet-upload-text"><span>클릭</span>하여 악보 파일 업로드 (PDF, 이미지 등)</div>
+        </div>
+        <input class="sheet-file-input" id="${sid}-file-input" type="file" multiple onchange="handleFileUpload('${sid}',this)">
+        <div class="sheet-files-list" id="${sid}-files-list">${filesHtml}</div>
+      </div>
+      ${notesHtml}
+    </div>`;
+}
+
+function toggleEdit(sid) {
+  const data = slideData[sid];
+  data.songs.forEach((s,i)=>{
+    const n=document.getElementById(`${sid}-name-${i}`), k=document.getElementById(`${sid}-key-${i}`);
+    if(n) s.name=n.value; if(k) s.key=k.value;
+  });
+  data.isEditing = false;
+  buildWorshipSlide(sid);
+  saveWorshipData();
+}
+
+function toggleNotesEdit(sid) {
+  const ta=document.getElementById(`${sid}-notes-ta`), disp=document.getElementById(`${sid}-notes-display`), btn=document.getElementById(`${sid}-notesbtn`);
+  if(ta.style.display==='none'){
+    ta.style.display='block'; disp.style.display='none'; ta.focus(); btn.textContent='💾 저장'; btn.classList.add('save');
+  } else {
+    slideData[sid].notes=ta.value; disp.textContent=ta.value;
+    ta.style.display='none'; disp.style.display='block'; btn.textContent='✏️ 편집'; btn.classList.remove('save');
+  }
+}
+
+function ytVideoId(url){ const m=url.match(/(?:youtu\.be\/|v=|embed\/)([a-zA-Z0-9_-]{11})/); return m?m[1]:null; }
+
+function addYT(sid){
+  const inp=document.getElementById(`${sid}-yt-input`), url=inp.value.trim(); if(!url) return;
+  const vid=ytVideoId(url); if(!vid){alert('올바른 YouTube 링크를 입력해주세요.');return;}
+  slideData[sid].ytLinks.push(url); inp.value='';
+  document.getElementById(`${sid}-yt-embeds`).innerHTML=slideData[sid].ytLinks.map((u,i)=>{
+    const v=ytVideoId(u); if(!v) return '';
+    return `<div class="yt-embed-block"><button class="yt-embed-remove" onclick="removeYT('${sid}',${i})">✕</button><iframe src="https://www.youtube.com/embed/${v}" allowfullscreen loading="lazy"></iframe></div>`;
+  }).join('');
+}
+
+function removeYT(sid,idx){ slideData[sid].ytLinks.splice(idx,1); buildWorshipSlide(sid); }
+
+function onDragStart(e,sid,idx){ slideData[sid].dragSrc=idx; e.currentTarget.classList.add('dragging'); }
+function onDragOver(e){ e.preventDefault(); e.currentTarget.classList.add('drag-over'); }
+function onDrop(e,sid,idx){
+  e.preventDefault(); e.currentTarget.classList.remove('drag-over');
+  const src=slideData[sid].dragSrc; if(src===null||src===idx) return;
+  const songs=slideData[sid].songs, moved=songs.splice(src,1)[0]; songs.splice(idx,0,moved);
+  slideData[sid].dragSrc=null; buildWorshipSlide(sid);
+}
+function onDragEnd(e,sid){ e.currentTarget.classList.remove('dragging'); document.querySelectorAll('.song-item').forEach(el=>el.classList.remove('drag-over')); }
+
+function handleFileUpload(sid,input){
+  Array.from(input.files).forEach(f=>{ slideData[sid].files.push({name:f.name,url:URL.createObjectURL(f)}); });
+  document.getElementById(`${sid}-files-list`).innerHTML=slideData[sid].files.map((f,i)=>`
+    <div class="sheet-file-item"><span class="sheet-file-name">📄 ${f.name}</span>
+    <div class="sheet-file-actions">
+      <button class="sheet-download-btn" onclick="downloadFile('${sid}',${i})">다운로드</button>
+      <button class="sheet-remove-btn" onclick="removeFile('${sid}',${i})">삭제</button>
+    </div></div>`).join('');
+  input.value='';
+}
+
+function downloadFile(sid,idx){ const f=slideData[sid].files[idx],a=document.createElement('a'); a.href=f.url; a.download=f.name; a.click(); }
+function removeFile(sid,idx){ slideData[sid].files.splice(idx,1); buildWorshipSlide(sid); }
+
+// INIT
+loadWorshipData();
+loadShared();
+showSlide('home');
+</script>
+</body>
+</html>
